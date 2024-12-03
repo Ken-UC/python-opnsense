@@ -181,7 +181,6 @@ class Alias(object):
         }
         return self.device._authenticated_request("POST", f"firewall/alias/setItem/{uuid}", body=request_body)
                       
-    @deprecated(deprecated_in="1.0.5", removed_in="1.1.0", details="Use set instead")
     def apply_alias(self):
         request_body = {}
         return self.device._authenticated_request("POST", "firewall/alias/reconfigure", body=request_body)
