@@ -53,7 +53,9 @@ class Opnsense(object):
         self._b64_auth = b64encode(str.encode(f"{self._api_key}:{self._api_secret}")).decode("utf-8")
 
         # We'll use CA files provided by path first, then content second.
-        if self._ca_path is not None:
+        if self._ca_path is None and self._ca_content is None:
+            self._context = ssl._create_unverified_context()
+        elif self._ca_path is not None:
             self._context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
             self._context.load_verify_locations(self._ca_path)
         elif self._ca_content is not None:
